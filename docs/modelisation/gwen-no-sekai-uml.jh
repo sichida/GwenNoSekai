@@ -1,0 +1,135 @@
+
+entity Blog {
+  blogId String required,
+  blogTitle String required,
+  blogSeoDescription String
+}
+
+entity BlogDescription {
+  title String required,
+  description String required
+}
+
+entity Theme {
+	themeId String required
+}
+
+entity Configuration {
+	itemPerPage Integer required,
+    displayAuthor Boolean required,
+    pinterestAccount String,
+    facebookPage String,
+    instagramAccount String
+}
+
+entity Reference {
+	referenceId Integer required,
+	title String required,
+    link String required
+}
+
+entity Article {
+  title String required,
+  content String,
+  permalink String required,
+  creationDate ZonedDateTime,
+  lastUpdateDate ZonedDateTime
+}
+
+entity Comment {
+	commentId Long required,
+    comment String required
+}
+
+entity Author {
+	email String required,
+    nickname String required,
+    website String
+}
+
+entity Image {
+	imageId Long required,
+    title String,
+    width Integer required,
+    height Integer required,
+    content ImageBlob required
+}
+
+entity Tag {
+	tag String required
+}
+
+entity Category {
+	category String required
+}
+
+entity User {
+	username String required,
+    password String required,
+    firstname String,
+    lastname String,
+    creationDate ZonedDateTime required,
+    enabled Boolean required,
+    role Role required
+}
+
+enum Role {
+	ADMIN, AUTHOR, READER
+}
+
+
+relationship OneToOne {
+	Blog{configuration} to Configuration
+}
+
+relationship OneToOne {
+	Blog{activeTheme(themeId)} to Theme
+}
+
+relationship OneToMany {
+	Blog{references(referenceId)} to Reference
+}
+
+relationship OneToOne {
+	Blog{description} to BlogDescription
+}
+
+relationship OneToOne {
+	BlogDescription{thumbnail(imageId)} to Image
+}
+
+relationship OneToOne {
+	Comment{author(nickname)} to Author
+}
+
+relationship OneToMany {
+  Blog{articles(permalink)} to Article
+}
+
+relationship OneToMany {
+  Article{comments(commentId)} to Comment
+}
+
+relationship OneToMany {
+  Article{tags(tag)} to Tag
+}
+
+relationship OneToMany {
+  Article{categories(category)} to Category
+}
+
+relationship OneToOne {
+  Article{author(username)} to User
+}
+
+relationship OneToOne {
+  Article{thumbnail(imageId)} to Image
+}
+
+relationship OneToMany {
+  Article{images(imageId)} to Image
+}
+
+relationship OneToMany {
+  Image{source(imageId)} to Image
+}
