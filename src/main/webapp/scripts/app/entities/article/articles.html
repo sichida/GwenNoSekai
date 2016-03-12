@@ -1,0 +1,72 @@
+<div>
+    <h2 translate="gwennosekaiApp.article.home.title">Articles</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="article.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="gwennosekaiApp.article.home.createLabel">Create new Article
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="gwennosekaiApp.article.title">Title</span></th>
+                    <th><span translate="gwennosekaiApp.article.content">Content</span></th>
+                    <th><span translate="gwennosekaiApp.article.permalink">Permalink</span></th>
+                    <th><span translate="gwennosekaiApp.article.creationDate">CreationDate</span></th>
+                    <th><span translate="gwennosekaiApp.article.lastUpdateDate">LastUpdateDate</span></th>
+                    <th><span translate="gwennosekaiApp.article.isPublished">IsPublished</span></th>
+                    <th><span translate="gwennosekaiApp.article.enablePublicPreview">EnablePublicPreview</span></th>
+                    <th><span translate="gwennosekaiApp.article.author">Author</span></th>
+                    <th><span translate="gwennosekaiApp.article.thumbnail">Thumbnail</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="article in articles track by article.id">
+                    <td><a ui-sref="article.detail({id:article.id})">{{article.id}}</a></td>
+                    <td>{{article.title}}</td>
+                    <td>{{article.content}}</td>
+                    <td>{{article.permalink}}</td>
+                    <td>{{article.creationDate | date:'medium'}}</td>
+                    <td>{{article.lastUpdateDate | date:'medium'}}</td>
+                    <td>{{article.isPublished}}</td>
+                    <td>{{article.enablePublicPreview}}</td>
+                    <td>{{article.author}}</td>
+                    <td>{{article.thumbnail}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="article.detail({id:article.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="article.edit({id:article.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="article.delete({id:article.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

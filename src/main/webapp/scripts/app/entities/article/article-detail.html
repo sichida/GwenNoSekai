@@ -1,0 +1,94 @@
+
+<div>
+    <h2><span translate="gwennosekaiApp.article.detail.title">Article</span> {{article.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.title">Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.content">Content</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.content}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.permalink">Permalink</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.permalink}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.creationDate">CreationDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.creationDate | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.lastUpdateDate">LastUpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.lastUpdateDate | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.isPublished">IsPublished</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.isPublished}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.enablePublicPreview">EnablePublicPreview</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.enablePublicPreview}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.author">Author</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.author}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="gwennosekaiApp.article.thumbnail">Thumbnail</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.thumbnail}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

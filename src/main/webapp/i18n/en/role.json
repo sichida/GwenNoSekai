@@ -1,0 +1,10 @@
+{
+    "gwennosekaiApp": {
+        "Role" : {
+            "null": "",
+            "ADMIN": "ADMIN",
+            "READ_WRITER": "READ_WRITER",
+            "READER": "READER"
+        }
+    }
+}

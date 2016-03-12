@@ -19,7 +19,8 @@ entity Configuration {
     displayAuthor Boolean required,
     pinterestAccount String,
     facebookPage String,
-    instagramAccount String
+    instagramAccount String,
+    twitterAccount String
 }
 
 entity Reference {
@@ -32,8 +33,10 @@ entity Article {
   title String required,
   content String,
   permalink String required,
-  creationDate ZonedDateTime,
-  lastUpdateDate ZonedDateTime
+  creationDate ZonedDateTime required,
+  lastUpdateDate ZonedDateTime,
+  isPublished Boolean required,
+  enablePublicPreview Boolean
 }
 
 entity Comment {
@@ -77,7 +80,25 @@ enum Role {
 	ADMIN, AUTHOR, READER
 }
 
+entity Newsletter {
+  newsletter Integer required,
+  title String required,
+  body String required,
+  creationDate ZonedDateTime required,
+  sendDate ZonedDateTime required
+}
 
+entity NewsletterReader {
+  email String required
+}
+
+relationship OneToMany {
+	Blog{newsletters} to Newsletter
+}
+
+relationship OneToMany {
+	Blog{NewsletterReaders} to NewsletterReader
+}
 relationship OneToOne {
 	Blog{configuration} to Configuration
 }
