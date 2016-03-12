@@ -1,0 +1,7 @@
+gwennosekai-mongodb:
+  container_name: gwennosekai-mongodb
+  image: mongo:3.0.7
+  # volumes:
+  #   - ~/volumes/jhipster/GwenNoSekai/mongodb/:/data/db/
+  ports:
+    - "27017:27017"
