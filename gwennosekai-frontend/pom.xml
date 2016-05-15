@@ -14,10 +14,10 @@
     <build>
         <resources>
             <resource>
-                <directory>${project.build.directory}/dist</directory>
+                <directory>${basedir}/dist</directory>
             </resource>
             <resource>
-                <directory>${basedir}/bower_components</directory>
+                <directory>${basedir}/node_modules/webpack-dev-server/bin</directory>
             </resource>
         </resources>
         <plugins>
@@ -45,15 +45,9 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>bower install</id>
+                        <id>npm run build</id>
                         <goals>
-                            <goal>bower</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>gulp build</id>
-                        <goals>
-                            <goal>gulp</goal>
+                            <goal>npm</goal>
                         </goals>
                     </execution>
                 </executions>
