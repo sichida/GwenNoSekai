@@ -26,7 +26,8 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
+  HMR: false,
+  GA: 'prod-google-analytics-tag'
 });
 
 module.exports = webpackMerge(commonConfig, {

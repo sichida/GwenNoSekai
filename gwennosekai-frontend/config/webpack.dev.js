@@ -20,7 +20,8 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   host: 'localhost',
   port: 3000,
   ENV: ENV,
-  HMR: HMR
+  HMR: HMR,
+  GA: 'dev-google-analytics-tag'
 });
 
 /**
