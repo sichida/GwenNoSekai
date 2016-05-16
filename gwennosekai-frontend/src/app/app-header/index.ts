@@ -1,1 +1,1 @@
-export * from './app-header.component.ts';
+export * from './app-header.component';

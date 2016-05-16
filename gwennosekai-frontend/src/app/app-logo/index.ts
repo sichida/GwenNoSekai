@@ -1,2 +1,1 @@
-// Application level directive
-export * from './app-logo.component.ts';
+export * from './app-logo.component';
