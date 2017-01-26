@@ -1,0 +1,19 @@
+<div class="articles">
+  <table class="table table-condensed">
+    <caption>Liste des articles du blog.</caption>
+    <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Auteur</th>
+      <th>Date de création</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let post of posts">
+      <td scope="row">{{post.title}}</td>
+      <td>{{post.author}}</td>
+      <td>{{post.creationDate | date:'mediumDate'}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

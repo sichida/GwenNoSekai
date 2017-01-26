@@ -1,3 +1,3 @@
 <app-logo></app-logo>
 <app-menu class="pull-right"></app-menu>
-<img class="banner" src="/assets/images/banner.jpg">
+<img *ngIf="!noBanner" class="banner" src="/assets/images/banner.jpg">
