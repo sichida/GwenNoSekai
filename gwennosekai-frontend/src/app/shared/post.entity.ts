@@ -3,4 +3,5 @@ export class Post {
   thumb: string;
   content:string;
   creationDate:Date;
+  author:string;
 }
