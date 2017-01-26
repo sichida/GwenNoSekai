@@ -1,5 +1,6 @@
 language: java
-before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+jdk:
+  - oraclejdk8
 env:
   - TRAVIS_NODE_VERSION="6"
 install:
