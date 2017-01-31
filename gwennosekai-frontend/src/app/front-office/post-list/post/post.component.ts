@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Post} from '../shared';
+import {Post} from "../../../shared/post.entity";
 
 @Component({
   selector: 'app-post',

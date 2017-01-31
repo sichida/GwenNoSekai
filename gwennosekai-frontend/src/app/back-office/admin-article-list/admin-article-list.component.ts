@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PostService} from "../post.service";
-import {Post} from "../shared/post.entity";
+import {Post} from "../../shared/post.entity";
+import {PostService} from "../../post.service";
 
 @Component({
   selector: 'app-admin-article-list',
