@@ -5,7 +5,7 @@
     </a>
   </div>
   <div class="col-xs-12">
-    <form (submit)="submitArticle()">
+    <form (submit)="submitArticle()" *ngIf="article">
       <div class="form-group">
         <label for="title">Titre</label>
         <input type="text" class="form-control" id="title" name="title"

@@ -1,6 +1,5 @@
 package fr.ichida.cms.feature;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -9,9 +8,11 @@ import cucumber.api.java.en.When;
 import fr.ichida.cms.GwennosekaiJavaApplication;
 import fr.ichida.cms.domain.Article;
 import fr.ichida.cms.mongo.ArticleRepository;
+import org.assertj.core.groups.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -39,6 +41,13 @@ public class ArticleStepdefs {
     @Before
     public void setup() {
         this.expectedArticle = null;
+    }
+
+    @Before("@mongo-txn")
+    public void clearMongoCollections() {
+        mongoTemplate.getCollectionNames().forEach(name -> {
+            mongoTemplate.remove(new Query(), name);
+        });
     }
 
     @When("^he creates the article$")
@@ -82,6 +91,29 @@ public class ArticleStepdefs {
 
     @Then("^I should display (\\d+) article$")
     public void iShouldDisplayArticle(int nbArticle) throws Throwable {
-        assertThat(((ResponseEntity<Page<Article>>) this.result).getBody().getContent().size()).isEqualTo(nbArticle);
+        assertThat(((ResponseEntity<Page<Article>>) this.result).getBody().getContent().size())
+                .isEqualTo(nbArticle);
+    }
+
+    @And("^we should find the article in results$")
+    public void weShouldFindTheArticleInResults(List<Article> articles) throws Throwable {
+        Article ref = articles.get(0);
+        Tuple refData = tuple(ref.getTitle(), ref.getContent(), ref.getPermalink(), ref.getAuthor());
+        assertThat(((ResponseEntity<Page<Article>>) this.result).getBody().getContent())
+                .extracting("title", "content", "permalink", "author").contains(refData);
+    }
+
+    @When("^I request the article with id \"([^\"]*)\"$")
+    public void iRequestTheArticleWithId(String id) throws Throwable {
+        this.result = this.articleRestService.findById(id);
+    }
+
+    @Then("^I should find this article$")
+    public void iShouldFindThisArticle(List<Article> articles) throws Throwable {
+        Article ref = articles.get(0);
+        Tuple refData = tuple(ref.getTitle(), ref.getContent(), ref.getPermalink(), ref.getAuthor());
+        Article expected = ((ResponseEntity<Article>) this.result).getBody();
+        Tuple expectedData = tuple(expected.getTitle(), expected.getContent(), expected.getPermalink(), expected.getAuthor());
+        assertThat(expectedData).isEqualTo(refData);
     }
 }

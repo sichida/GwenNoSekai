@@ -35,4 +35,9 @@ public class ArticleService {
     public Page<Article> find(int page, int pageSize) {
         return articleRepository.findAll(new PageRequest(page, pageSize));
     }
+
+    @Transactional(readOnly = true)
+    public Article findById(String id) {
+        return articleRepository.findOne(id);
+    }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Article} from "../../shared/article.entity";
-import {ArticleService} from "../../service/article.service";
+import { ActivatedRoute } from '@angular/router';
+import { Article } from '../../shared/article.entity';
+import { ArticleService } from '../../service/article.service';
 
 @Component({
   selector: 'app-admin-article',
@@ -10,10 +11,17 @@ import {ArticleService} from "../../service/article.service";
 export class AdminArticleComponent implements OnInit {
   article: Article;
 
-  constructor(private articleService:ArticleService) { }
+  constructor(private route: ActivatedRoute,
+              private articleService: ArticleService) {
+  }
 
   ngOnInit() {
-    this.article = new Article();
+    if (this.route.snapshot.params['id']) {
+      this.articleService.get(this.route.snapshot.params['id'])
+        .subscribe((article: Article) => this.article = article);
+    } else {
+      this.article = new Article();
+    }
   }
 
   submitArticle() {
