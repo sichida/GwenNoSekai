@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Article} from "../shared/article.entity";
-import {Http, Headers, RequestOptions, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import { Injectable } from '@angular/core';
+import { Article } from '../shared/article.entity';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { ApiResponse } from '../shared/api-response.entity';
 
 @Injectable()
 export class ArticleService {
@@ -19,7 +20,7 @@ export class ArticleService {
       .map(this.convertArticleDate);
   }
 
-  query(page: number, size: number): Observable<Array<Article>> {
+  query(page: number, size: number): Observable<ApiResponse<Array<Article>>> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', page.toString());
     params.set('size', size.toString());
@@ -29,7 +30,7 @@ export class ArticleService {
       .map(res => res.json())
       .map(res => {
         res.content.forEach(this.convertArticleDate);
-        return res.content
+        return res
       });
   }
 

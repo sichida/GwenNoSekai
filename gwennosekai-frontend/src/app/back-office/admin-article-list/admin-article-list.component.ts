@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Article} from "../../shared/article.entity";
 import {ArticleService} from "../../service/article.service";
+import { ApiResponse } from '../../shared/api-response.entity';
 
 @Component({
   selector: 'app-admin-article-list',
@@ -8,15 +9,27 @@ import {ArticleService} from "../../service/article.service";
   styleUrls: ['./admin-article-list.component.scss']
 })
 export class AdminArticleListComponent implements OnInit {
-  public articles: Array<Article>;
-  private static readonly FIRST_PAGE = 0;
-  private static readonly DEFAULT_PAGE_SIZE = 10;
+  public articles: ApiResponse<Array<Article>>;
+  currentPage: number = 0;
+  pageSize: number = 10;
 
   constructor(private articleService: ArticleService) {
   }
 
   ngOnInit() {
-    this.articleService.query(AdminArticleListComponent.FIRST_PAGE, AdminArticleListComponent.DEFAULT_PAGE_SIZE)
-      .subscribe(res => this.articles = res);
+    this.loadArticles(this.currentPage, this.pageSize);
+  }
+
+  loadArticles(page: number, size: number) {
+    this.articleService.query(page, size)
+      .subscribe(res => {
+        this.articles = res;
+        this.currentPage = this.articles.number;
+      });
+  }
+
+  onItemPerPageChange(pageSize: number) {
+    this.pageSize = pageSize;
+    this.loadArticles(this.currentPage, this.pageSize);
   }
 }

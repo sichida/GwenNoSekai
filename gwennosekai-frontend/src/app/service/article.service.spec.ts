@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
-import {TestBed, async, inject} from '@angular/core/testing';
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
-import {ArticleService} from './article.service';
-import {Article} from "../shared/article.entity";
-import {ApiResponse} from "../shared/api-response.entity";
+import { TestBed, async, inject } from '@angular/core/testing';
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { ArticleService } from './article.service';
+import { Article } from '../shared/article.entity';
+import { ApiResponse } from '../shared/api-response.entity';
 
 describe('ArticleService', () => {
   beforeEach(() => {
@@ -82,7 +82,7 @@ describe('ArticleService', () => {
 
       service.query(0, 3)
         .subscribe(res => {
-          expect(res).toEqual(articles.content);
+          expect(res).toEqual(articles);
         });
     })
   ))
