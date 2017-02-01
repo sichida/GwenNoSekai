@@ -3,13 +3,16 @@ package fr.ichida.cms.feature;
 import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import fr.ichida.cms.GwennosekaiJavaApplication;
 import fr.ichida.cms.domain.Article;
 import fr.ichida.cms.mongo.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDateTime;
@@ -31,6 +34,7 @@ public class ArticleStepdefs {
     @Autowired
     private ArticleRestService articleRestService;
     private Article expectedArticle;
+    private ResponseEntity result;
 
     @Before
     public void setup() {
@@ -64,5 +68,20 @@ public class ArticleStepdefs {
         assertThat(this.expectedArticle.getCreationDate().getYear()).isEqualTo(LocalDateTime.now().getYear());
         assertThat(this.expectedArticle.getCreationDate().getMonth()).isEqualTo(LocalDateTime.now().getMonth());
         assertThat(this.expectedArticle.getCreationDate().getDayOfMonth()).isEqualTo(LocalDateTime.now().getDayOfMonth());
+    }
+
+    @Given("^the following articles exist:$")
+    public void theFollowingArticlesExist(List<Article> articles) throws Throwable {
+        articles.forEach(articleRepository::save);
+    }
+
+    @When("^I display (\\d+) article from page (\\d+)$")
+    public void iDisplayArticleFromPage(int nbArticles, int page) throws Throwable {
+        this.result = articleRestService.query(page - 1, nbArticles);
+    }
+
+    @Then("^I should display (\\d+) article$")
+    public void iShouldDisplayArticle(int nbArticle) throws Throwable {
+        assertThat(((ResponseEntity<Page<Article>>) this.result).getBody().getContent().size()).isEqualTo(nbArticle);
     }
 }
