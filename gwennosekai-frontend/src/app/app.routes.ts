@@ -3,6 +3,7 @@ import {FrontOfficeComponent} from "./front-office/front-office.component";
 import {BackOfficeComponent} from "./back-office/back-office.component";
 import {DashboardComponent} from "./back-office/dashboard/dashboard.component";
 import {AdminArticleListComponent} from "./back-office/admin-article-list/admin-article-list.component";
+import {AdminArticleComponent} from "./back-office/admin-article/admin-article.component";
 
 export const ROUTES: Routes = [
   {
@@ -14,7 +15,10 @@ export const ROUTES: Routes = [
       path: '', component: DashboardComponent
     },
     {
-      path: 'articles', component: AdminArticleListComponent
+      path: 'article', component: AdminArticleListComponent
+    },
+    {
+      path: 'article/new', component: AdminArticleComponent
     }
   ]
   }
