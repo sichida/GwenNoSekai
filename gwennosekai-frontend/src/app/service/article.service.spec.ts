@@ -104,5 +104,23 @@ describe('ArticleService', () => {
           expect(res).toEqual(article);
         });
     })));
+
+  it('should update an existing article', async(inject(
+    [ArticleService, MockBackend], (service: ArticleService, mockBackend) => {
+      const mockArticle: Article = {
+        id: 'some_random_id',
+        title: 'My first article',
+        content: 'This is the story of my life',
+        creationDate: new Date()
+      };
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockArticle) })));
+      });
+
+      service.update(mockArticle).subscribe(res => {
+        expect(res).toEqual(mockArticle);
+      });
+    })));
 })
 ;

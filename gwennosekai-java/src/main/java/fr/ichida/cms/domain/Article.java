@@ -17,6 +17,7 @@ public class Article {
     private String permalink;
     private String author;
     private LocalDateTime creationDate;
+    private LocalDateTime lastUpdateDate;
 
     public String getId() {
         return id;
@@ -64,5 +65,13 @@ public class Article {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }

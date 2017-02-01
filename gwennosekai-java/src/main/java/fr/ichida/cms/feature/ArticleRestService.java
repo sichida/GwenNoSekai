@@ -7,8 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by shoun on 31/01/2017.
@@ -38,5 +41,10 @@ public class ArticleRestService {
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<Article> findById(@PathVariable("id") String id) {
         return ResponseEntity.ok(articleService.findById(id));
+    }
+
+    @RequestMapping(value = "/{id}", method = PUT)
+    public ResponseEntity<Article> update(@PathVariable("id") String id, @RequestBody Article article) {
+        return ResponseEntity.ok(articleService.update(id, article));
     }
 }

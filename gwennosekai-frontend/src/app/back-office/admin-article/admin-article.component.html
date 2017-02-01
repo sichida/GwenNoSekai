@@ -1,3 +1,12 @@
+<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="created || updated">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <span *ngIf="updated">L'article a été mis à jour</span>
+  <span *ngIf="created">L'article a été créé</span>
+</div>
+<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="errorOccurred">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <span>Une erreur est survenue. Si le problème persiste veuillez contacter le service de support.</span>
+</div>
 <div class="row">
   <div class="col-xs-12">
     <a class="btn btn-link" href [routerLink]="['/', 'admin', 'article']">

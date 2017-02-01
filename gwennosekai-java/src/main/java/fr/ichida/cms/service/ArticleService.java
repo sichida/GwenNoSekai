@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Created by shoun on 31/01/2017.
@@ -27,6 +26,8 @@ public class ArticleService {
     public Article save(Article article) {
         if (null == article.getId()) {
             article.setCreationDate(LocalDateTime.now());
+        } else {
+            article.setLastUpdateDate(LocalDateTime.now());
         }
         return articleRepository.save(article);
     }
@@ -39,5 +40,14 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public Article findById(String id) {
         return articleRepository.findOne(id);
+    }
+
+    @Transactional
+    public Article update(String id, Article article) {
+        final Article toUpdate = articleRepository.findOne(id);
+        toUpdate.setTitle(article.getTitle());
+        toUpdate.setContent(article.getContent());
+        toUpdate.setPermalink(article.getPermalink());
+        return this.save(toUpdate);
     }
 }

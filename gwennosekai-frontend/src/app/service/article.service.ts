@@ -45,4 +45,11 @@ export class ArticleService {
       .map(res => res.json())
       .map(this.convertArticleDate);
   }
+
+  update(article: Article) {
+    let options = new RequestOptions({headers: this._headers});
+    return this._http.put(`api/v1/article/${article.id}`, article, options)
+      .map(res => res.json())
+      .map(this.convertArticleDate);
+  }
 }

@@ -1,5 +1,6 @@
 package fr.ichida.cms.feature;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -115,5 +116,18 @@ public class ArticleStepdefs {
         Article expected = ((ResponseEntity<Article>) this.result).getBody();
         Tuple expectedData = tuple(expected.getTitle(), expected.getContent(), expected.getPermalink(), expected.getAuthor());
         assertThat(expectedData).isEqualTo(refData);
+    }
+
+    @And("^it last updated date should be today$")
+    public void itLastUpdatedDateShouldBeToday() throws Throwable {
+        assertThat(this.expectedArticle.getLastUpdateDate()).isNotNull();
+        assertThat(this.expectedArticle.getLastUpdateDate().getYear()).isEqualTo(LocalDateTime.now().getYear());
+        assertThat(this.expectedArticle.getLastUpdateDate().getMonth()).isEqualTo(LocalDateTime.now().getMonth());
+        assertThat(this.expectedArticle.getLastUpdateDate().getDayOfMonth()).isEqualTo(LocalDateTime.now().getDayOfMonth());
+    }
+
+    @When("^he edits the article described by \"([^\"]*)\" as:$")
+    public void heEditsTheArticleDescribedByAs(String id, List<Article> articles) throws Throwable {
+        this.expectedArticle = this.articleRestService.update(id, articles.get(0)).getBody();
     }
 }
