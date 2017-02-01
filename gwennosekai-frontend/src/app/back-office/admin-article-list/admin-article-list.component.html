@@ -16,10 +16,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let post of posts">
-      <td scope="row">{{post.title}}</td>
-      <td>{{post.author}}</td>
-      <td>{{post.creationDate | date:'mediumDate'}}</td>
+    <tr *ngFor="let article of articles">
+      <td scope="row">{{article.title}}</td>
+      <td>{{article.author}}</td>
+      <td>{{article.creationDate | date:'mediumDate'}}</td>
     </tr>
     </tbody>
   </table>

@@ -31,8 +31,8 @@ import {ArticleService} from "./service/article.service";
     BackOfficeComponent,
     DashboardComponent,
     AdminMenuComponent,
-    AdminArticleListComponent,
-    AdminArticleComponent
+    AdminArticleComponent,
+    AdminArticleListComponent
   ],
   imports: [
     BrowserModule,

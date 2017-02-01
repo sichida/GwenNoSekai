@@ -34,7 +34,7 @@ public class ArticleRestService {
 
     @RequestMapping(value = {"", "/"}, method = GET)
     public ResponseEntity<Page<Article>> query(@RequestParam(value = "page", defaultValue = "0") int page,
-                                               @RequestParam(value = "nb", defaultValue = "9") int pageSize) {
+                                               @RequestParam(value = "size", defaultValue = "9") int pageSize) {
         return ResponseEntity.ok(articleService.find(page, pageSize));
     }
 }

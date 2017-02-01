@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Article} from "../../shared/post.entity";
+import {Article} from "../../shared/article.entity";
 import {ArticleService} from "../../service/article.service";
 
 @Component({

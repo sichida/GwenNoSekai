@@ -5,7 +5,7 @@ import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@
 import {MockBackend} from "@angular/http/testing";
 import { FormsModule } from '@angular/forms';
 import {AdminArticleComponent} from "./admin-article.component";
-import {Article} from "../../shared/post.entity";
+import {Article} from "../../shared/article.entity";
 import {ArticleService} from "../../service/article.service";
 
 
@@ -65,6 +65,6 @@ describe('AdminArticleComponent', () => {
       });
 
       component.submitArticle();
-      expect(component.article).toEqual(JSON.parse(JSON.stringify(mockArticle)));
+      expect(component.article).toEqual(mockArticle);
     })));
 });

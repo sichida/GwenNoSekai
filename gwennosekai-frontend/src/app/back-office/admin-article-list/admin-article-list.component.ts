@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Post} from "../../shared/post.entity";
-import {PostService} from "../../post.service";
+import {Component, OnInit} from "@angular/core";
+import {Article} from "../../shared/article.entity";
+import {ArticleService} from "../../service/article.service";
 
 @Component({
   selector: 'app-admin-article-list',
@@ -8,12 +8,15 @@ import {PostService} from "../../post.service";
   styleUrls: ['./admin-article-list.component.scss']
 })
 export class AdminArticleListComponent implements OnInit {
-  private posts:Array<Post>;
+  public articles: Array<Article>;
+  private static readonly FIRST_PAGE = 0;
+  private static readonly DEFAULT_PAGE_SIZE = 10;
 
-  constructor(private _postService:PostService) { }
-
-  ngOnInit() {
-     this._postService.findAll(0, 9).subscribe(posts => this.posts = posts);
+  constructor(private articleService: ArticleService) {
   }
 
+  ngOnInit() {
+    this.articleService.query(AdminArticleListComponent.FIRST_PAGE, AdminArticleListComponent.DEFAULT_PAGE_SIZE)
+      .subscribe(res => this.articles = res);
+  }
 }
