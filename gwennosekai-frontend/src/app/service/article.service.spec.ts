@@ -1,5 +1,4 @@
 /* tslint:disable:no-unused-variable */
-
 import { TestBed, async, inject } from '@angular/core/testing';
 import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -37,10 +36,10 @@ describe('ArticleService', () => {
       };
 
       mockBackend.connections.subscribe(conn => {
-        conn.mockRespond(new Response(new ResponseOptions({body: JSON.stringify(mockArticle)})));
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockArticle) })));
       });
 
-      service.create({title: 'My first article', content: 'This is the story of my life'})
+      service.create({ title: 'My first article', content: 'This is the story of my life' })
         .subscribe(res => {
           expect(res).toEqual(mockArticle);
         });
@@ -77,15 +76,51 @@ describe('ArticleService', () => {
       };
 
       mockBackend.connections.subscribe(conn => {
-        conn.mockRespond(new Response(new ResponseOptions({body: JSON.stringify(articles)})));
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(articles) })));
       });
 
       service.query(0, 3)
         .subscribe(res => {
           expect(res).toEqual(articles);
         });
-    })
-  ))
-  ;
+    })));
+
+  it('should get one article with it id', async(inject(
+    [ArticleService, MockBackend], (service: ArticleService, mockBackend) => {
+      const article: Article =
+        {
+          id: 'some_random_id',
+          title: 'My first article',
+          content: 'This is the story of my life',
+          creationDate: new Date()
+        };
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(article) })));
+      });
+
+      service.get('some_random_id')
+        .subscribe(res => {
+          expect(res).toEqual(article);
+        });
+    })));
+
+  it('should update an existing article', async(inject(
+    [ArticleService, MockBackend], (service: ArticleService, mockBackend) => {
+      const mockArticle: Article = {
+        id: 'some_random_id',
+        title: 'My first article',
+        content: 'This is the story of my life',
+        creationDate: new Date()
+      };
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockArticle) })));
+      });
+
+      service.update(mockArticle).subscribe(res => {
+        expect(res).toEqual(mockArticle);
+      });
+    })));
 })
 ;

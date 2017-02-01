@@ -15,4 +15,5 @@ import org.junit.runner.RunWith;
         format = {"html:target/cucumber", "json:target/cucumber.json"}
 )
 public class RunCukesTest {
+
 }

@@ -1,3 +1,4 @@
+@mongo-txn
 Feature: Create an article
   As contributor
   I want to create articles
