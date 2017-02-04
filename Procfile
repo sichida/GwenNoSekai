@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar -Dspring.profiles.active=staging gwennosekai-java/target/gwennosekai-java-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar -Dspring.data.mongodb.uri=$MONGODB_STAGING_URI gwennosekai-java/target/gwennosekai-java-0.0.1-SNAPSHOT.jar
