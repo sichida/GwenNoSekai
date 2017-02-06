@@ -8,7 +8,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import fr.ichida.cms.GwennosekaiJavaApplication;
 import fr.ichida.cms.domain.Article;
+import fr.ichida.cms.domain.Picture;
 import fr.ichida.cms.mongo.ArticleRepository;
+import fr.ichida.cms.mongo.PictureRepository;
 import org.assertj.core.groups.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +38,8 @@ public class ArticleStepdefs {
     private MongoTemplate mongoTemplate;
     @Autowired
     private ArticleRestService articleRestService;
+    @Autowired
+    private PictureRepository pictureRepository;
     private Article expectedArticle;
     private ResponseEntity result;
 
@@ -129,5 +133,14 @@ public class ArticleStepdefs {
     @When("^he edits the article described by \"([^\"]*)\" as:$")
     public void heEditsTheArticleDescribedByAs(String id, List<Article> articles) throws Throwable {
         this.expectedArticle = this.articleRestService.update(id, articles.get(0)).getBody();
+    }
+
+    @Then("^I should find a thumbnail picture for the article \"([^\"]*)\"$")
+    public void iShouldFindAThumbnailPictureForTheArticle(String id) throws Throwable {
+        Article article = articleRepository.findOne(id);
+        assertThat(article.getThumbnailId()).isNotEmpty();
+        Picture picture = pictureRepository.findOne(article.getThumbnailId());
+        assertThat(picture).isNotNull();
+        assertThat(picture.getData()).isNotNull();
     }
 }
