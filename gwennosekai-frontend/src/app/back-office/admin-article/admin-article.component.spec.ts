@@ -1,12 +1,14 @@
 /* tslint:disable:no-unused-variable */
-import {RouterTestingModule} from "@angular/router/testing";
-import {async, inject, ComponentFixture, TestBed} from "@angular/core/testing";
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { async, inject, ComponentFixture, TestBed } from "@angular/core/testing";
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
 import { FormsModule } from '@angular/forms';
-import {AdminArticleComponent} from "./admin-article.component";
-import {Article} from "../../shared/article.entity";
-import {ArticleService} from "../../service/article.service";
+import { AdminArticleComponent } from "./admin-article.component";
+import { Article } from "../../shared/article.entity";
+import { ArticleService } from "../../service/article.service";
+import { AdminThumbnailComponent } from '../admin-thumbnail/admin-thumbnail.component';
+import { PictureService } from '../../service/picture.service';
 
 
 describe('AdminArticleComponent', () => {
@@ -16,10 +18,12 @@ describe('AdminArticleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AdminArticleComponent
+        AdminArticleComponent,
+        AdminThumbnailComponent
       ],
       providers: [
         ArticleService,
+        PictureService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -47,7 +51,7 @@ describe('AdminArticleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create a new article', async(inject(
+  it('should create a new article', inject(
     [MockBackend], (mockBackend) => {
       const mockArticle: Article = {
         title: 'My first article',
@@ -61,10 +65,10 @@ describe('AdminArticleComponent', () => {
       };
 
       mockBackend.connections.subscribe(conn => {
-        conn.mockRespond(new Response(new ResponseOptions({body: JSON.stringify(mockArticle)})));
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockArticle) })));
       });
 
       component.submitArticle();
       expect(component.article).toEqual(mockArticle);
-    })));
+    }));
 });
