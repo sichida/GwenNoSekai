@@ -1,5 +1,6 @@
 package fr.ichida.cms.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Picture {
     @Id
     private String id;
+    @JsonIgnore
     private byte[] data;
 
     public String getId() {
