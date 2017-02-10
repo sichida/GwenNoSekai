@@ -46,6 +46,7 @@ public class ArticleService {
     public Article update(String id, Article article) {
         final Article orig = articleRepository.findOne(id);
         article.setId(orig.getId());
+        article.setLastUpdateDate(LocalDateTime.now());
         return this.save(article);
     }
 }

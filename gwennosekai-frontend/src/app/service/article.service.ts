@@ -35,6 +35,7 @@ export class ArticleService extends AbstractHttpService {
   }
 
   private convertArticleDate(article) {
+    console.log(article.creationDate);
     article.creationDate = new Date(article.creationDate);
     return article;
   }
