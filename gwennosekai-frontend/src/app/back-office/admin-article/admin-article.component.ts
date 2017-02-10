@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from '../../shared/article.entity';
 import { ArticleService } from '../../service/article.service';
+import { Picture } from '../../shared/picture.entity';
 
 @Component({
   selector: 'app-admin-article',
   templateUrl: './admin-article.component.html',
-  styleUrls: ['./admin-article.component.css']
+  styleUrls: ['./admin-article.component.scss']
 })
 export class AdminArticleComponent implements OnInit {
   article: Article;
@@ -45,5 +46,9 @@ export class AdminArticleComponent implements OnInit {
         setTimeout(() => this.updated = false, 5000);
       }, () => this.errorOccurred = true);
     }
+  }
+
+  onThumbnailUploaded(mockPicture: Picture) {
+    this.article.thumbnailId = mockPicture.id;
   }
 }

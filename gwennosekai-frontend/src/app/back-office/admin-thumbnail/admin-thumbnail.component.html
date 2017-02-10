@@ -1,0 +1,7 @@
+<section class="col-xs-12">
+  <img src="api/v1/picture/content/{{picture.id}}" [alt]="picture.name" *ngIf="picture">
+  <label class="btn btn-info btn-file center-block">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter une image
+    <input type="file" style="display: none;" (change)="upload($event.target.files[0])">
+  </label>
+</section>

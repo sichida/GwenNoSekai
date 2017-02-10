@@ -44,10 +44,8 @@ public class ArticleService {
 
     @Transactional
     public Article update(String id, Article article) {
-        final Article toUpdate = articleRepository.findOne(id);
-        toUpdate.setTitle(article.getTitle());
-        toUpdate.setContent(article.getContent());
-        toUpdate.setPermalink(article.getPermalink());
-        return this.save(toUpdate);
+        final Article orig = articleRepository.findOne(id);
+        article.setId(orig.getId());
+        return this.save(article);
     }
 }

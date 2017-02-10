@@ -18,6 +18,7 @@ public class Article {
     private String author;
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdateDate;
+    private String thumbnailId;
 
     public String getId() {
         return id;
@@ -73,5 +74,13 @@ public class Article {
 
     public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public String getThumbnailId() {
+        return thumbnailId;
+    }
+
+    public void setThumbnailId(String thumbnailId) {
+        this.thumbnailId = thumbnailId;
     }
 }
