@@ -9,7 +9,6 @@ export class HtmlEditorDirective implements AfterViewInit, OnDestroy {
   ngModel: string;
   @Output()
   ngModelChange: EventEmitter<string> = new EventEmitter<string>();
-  // editor:any;
 
   constructor() {
   }
@@ -19,8 +18,18 @@ export class HtmlEditorDirective implements AfterViewInit, OnDestroy {
       selector: 'textarea', //change this to a specific class/id
       schema: 'html5',
       skin_url: 'assets/skins/lightgray',
+      height: 500,
+      theme: 'modern',
+      plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+      ],
+      toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+      image_advtab: true,
       setup: editor => {
-        // this.editor = editor;
         editor.on('keyup', () => {
           const content = editor.getContent();
           this.ngModelChange.emit(content);
