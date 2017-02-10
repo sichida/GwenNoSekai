@@ -9,6 +9,7 @@ import { Article } from "../../shared/article.entity";
 import { ArticleService } from "../../service/article.service";
 import { AdminThumbnailComponent } from '../admin-thumbnail/admin-thumbnail.component';
 import { PictureService } from '../../service/picture.service';
+import { Picture } from '../../shared/picture.entity';
 
 
 describe('AdminArticleComponent', () => {
@@ -71,4 +72,12 @@ describe('AdminArticleComponent', () => {
       component.submitArticle();
       expect(component.article).toEqual(mockArticle);
     }));
+
+  it('should add a thumbnail', () => {
+    const mockPicture:Picture = {
+      id: 'some-random-id'
+    };
+    component.onThumbnailUploaded(mockPicture);
+    expect(component.article.thumbnailId).toEqual(mockPicture.id);
+  });
 });

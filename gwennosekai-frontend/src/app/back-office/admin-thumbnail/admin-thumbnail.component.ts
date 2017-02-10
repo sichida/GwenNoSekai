@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Picture } from '../../shared/picture.entity';
 import { PictureService } from '../../service/picture.service';
 
@@ -10,12 +10,19 @@ import { PictureService } from '../../service/picture.service';
 export class AdminThumbnailComponent implements OnInit {
   @Output()
   pictureUploaded: EventEmitter<Picture> = new EventEmitter<Picture>();
+  @Input()
+  pictureId:string;
   picture: Picture;
 
   constructor(private pictureService: PictureService) {
   }
 
   ngOnInit() {
+    console.log(this.pictureId);
+    if (this.pictureId) {
+      this.pictureService.findById(this.pictureId)
+        .subscribe(picture => this.picture = picture);
+    }
   }
 
   upload(file: File) {

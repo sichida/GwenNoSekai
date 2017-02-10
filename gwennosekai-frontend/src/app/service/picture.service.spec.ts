@@ -26,7 +26,7 @@ describe('PictureService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should update an existing article', async(inject(
+  it('should upload a thumbnail', async(inject(
     [PictureService, MockBackend], (service: PictureService, mockBackend) => {
       const mockPicture: Picture = {
         id: 'some_random_id'
@@ -39,6 +39,21 @@ describe('PictureService', () => {
       let mockFile: any = { name: 'mockFile' };
 
       service.uploadThumbnail(mockFile).subscribe(res => {
+        expect(res).toEqual(mockPicture);
+      });
+    })));
+
+  it('should find an existing picture', async(inject(
+    [PictureService, MockBackend], (service: PictureService, mockBackend) => {
+      const mockPicture: Picture = {
+        id: 'some_random_id'
+      };
+
+      mockBackend.connections.subscribe(conn => {
+        conn.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(mockPicture) })));
+      });
+
+      service.findById('some_random_id').subscribe(res => {
         expect(res).toEqual(mockPicture);
       });
     })));

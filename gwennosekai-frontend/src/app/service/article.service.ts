@@ -8,14 +8,14 @@ import { AbstractHttpService } from './abstract-http.service';
 @Injectable()
 export class ArticleService extends AbstractHttpService {
 
-  constructor(private _http: Http) {
+  constructor(private http: Http) {
     super();
   }
 
   create(article: Article): Observable<Article> {
     let options = new RequestOptions({ headers: this._headers });
 
-    return this._http.post('api/v1/article', JSON.stringify(article), options)
+    return this.http.post('api/v1/article', JSON.stringify(article), options)
       .map(res => res.json())
       .map(this.convertArticleDate);
   }
@@ -26,7 +26,7 @@ export class ArticleService extends AbstractHttpService {
     params.set('size', size.toString());
     let options = new RequestOptions({ headers: this._headers, search: params });
 
-    return this._http.get('api/v1/article', options)
+    return this.http.get('api/v1/article', options)
       .map(res => res.json())
       .map(res => {
         res.content.forEach(this.convertArticleDate);
@@ -41,14 +41,14 @@ export class ArticleService extends AbstractHttpService {
 
   get(id: string) {
     let options = new RequestOptions({ headers: this._headers });
-    return this._http.get(`api/v1/article/${id}`, options)
+    return this.http.get(`api/v1/article/${id}`, options)
       .map(res => res.json())
       .map(this.convertArticleDate);
   }
 
   update(article: Article) {
     let options = new RequestOptions({ headers: this._headers });
-    return this._http.put(`api/v1/article/${article.id}`, article, options)
+    return this.http.put(`api/v1/article/${article.id}`, article, options)
       .map(res => res.json())
       .map(this.convertArticleDate);
   }

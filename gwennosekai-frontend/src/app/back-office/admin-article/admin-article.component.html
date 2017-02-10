@@ -7,7 +7,7 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <span>Une erreur est survenue. Si le problème persiste veuillez contacter le service de support.</span>
 </div>
-<div class="row">
+<div class="row" *ngIf="article">
   <div class="col-xs-12">
     <a class="btn btn-link" href [routerLink]="['/', 'admin', 'article']">
       <i class="fa fa-angle-double-left" aria-hidden="true"></i> Retour
@@ -30,6 +30,7 @@
     </form>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <app-admin-thumbnail></app-admin-thumbnail>
+    <app-admin-thumbnail [pictureId]="article.thumbnailId"
+                         (pictureUploaded)="onThumbnailUploaded($event)"></app-admin-thumbnail>
   </div>
 </div>

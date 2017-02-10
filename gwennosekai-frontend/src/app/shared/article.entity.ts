@@ -3,4 +3,5 @@ export class Article {
   title: string;
   content: string;
   creationDate?: Date;
+  thumbnailId?: string;
 }
