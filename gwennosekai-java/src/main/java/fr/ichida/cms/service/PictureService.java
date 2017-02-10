@@ -33,4 +33,9 @@ public class PictureService {
         }
         return null;
     }
+
+    @Transactional(readOnly = true)
+    public Picture findById(String pictureId) {
+        return pictureRepository.findOne(pictureId);
+    }
 }

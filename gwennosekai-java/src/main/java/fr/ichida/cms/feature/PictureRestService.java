@@ -42,4 +42,8 @@ public class PictureRestService {
         }
         return ResponseEntity.notFound().build();
     }
+    @RequestMapping(value = "/{id}", method = GET)
+    public ResponseEntity findById(@PathVariable("id") String pictureId) {
+        return ResponseEntity.ok(pictureService.findById(pictureId));
+    }
 }

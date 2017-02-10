@@ -12,6 +12,7 @@ import fr.ichida.cms.domain.Picture;
 import fr.ichida.cms.mongo.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.util.StreamUtils;
@@ -70,13 +71,25 @@ public class PictureStepDef {
         this.response = pictureRestService.getContent(id);
     }
 
-    @Then("^I should the picture \"([^\"]*)\" should have same content that \"([^\"]*)\" file$")
-    public void iShouldThePictureShouldHaveSameContentThatFile(String id, String filename) throws Throwable {
+    @Then("^the picture \"([^\"]*)\" should have same content that \"([^\"]*)\" file$")
+    public void thePictureShouldHaveSameContentThatFile(String id, String filename) throws Throwable {
         Picture picture = pictureRepository.findOne(id);
         assertThat(picture).isNotNull();
         InputStream stream = new ClassPathResource("data/pictures/" + filename).getInputStream();
         byte[] expected = StreamUtils.copyToByteArray(stream);
         assertThat(picture.getData()).isEqualTo(expected);
         assertThat(this.response.getBody()).isEqualTo(expected);
+    }
+
+    @When("^I request the picture \"([^\"]*)\"$")
+    public void iRequestThePicture(String pictureId) throws Throwable {
+        response = pictureRestService.findById(pictureId);
+    }
+
+    @Then("^I should have a non null picture$")
+    public void iShouldHaveANonNullPicture() throws Throwable {
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
     }
 }

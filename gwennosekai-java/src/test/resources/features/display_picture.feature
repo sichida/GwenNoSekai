@@ -7,4 +7,4 @@ Feature: Display uploaded picture
       | id              | file content                              |
       | my-generated-id | gwennosekai-diy-cousette-bianca-cover.jpg |
     When I display the picture "my-generated-id"
-    Then I should the picture "my-generated-id" should have same content that "gwennosekai-diy-cousette-bianca-cover.jpg" file
+    Then the picture "my-generated-id" should have same content that "gwennosekai-diy-cousette-bianca-cover.jpg" file
