@@ -11,7 +11,7 @@ export class PictureService extends AbstractHttpService {
     super();
   }
 
-  uploadThumbnail(file: File): Observable<Picture> {
+  upload(file: File): Observable<Picture> {
     let headers = new Headers();
     let formData: FormData = new FormData();
     formData.append('file', file, file.name);

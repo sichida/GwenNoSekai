@@ -1,7 +1,6 @@
 package fr.ichida.cms.feature;
 
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -45,7 +44,7 @@ public class PictureStepDef {
         InputStream stream = new ClassPathResource("data/pictures/" + filename).getInputStream();
         MockMultipartFile file = new MockMultipartFile(filename, StreamUtils.copyToByteArray(stream));
 
-        Picture thumbnail = pictureRestService.uploadThumbnail(file).getBody();
+        Picture thumbnail = pictureRestService.upload(file).getBody();
         Article article = articleRestService.findById(id).getBody();
         article.setThumbnailId(thumbnail.getId());
         articleRestService.save(article);
@@ -62,6 +61,8 @@ public class PictureStepDef {
             } catch (IOException e) {
                 fail("Cannot find picture '" + row.get(1) + "'");
             }
+            picture.setFilename(row.get(2));
+            picture.setLocation(row.get(3));
             pictureRepository.save(picture);
         });
     }
@@ -91,5 +92,27 @@ public class PictureStepDef {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
+    }
+
+    @When("^I upload the picture \"([^\"]*)\"$")
+    public void iUploadThePicture(String filename) throws Throwable {
+        InputStream stream = new ClassPathResource("data/pictures/" + filename).getInputStream();
+        MockMultipartFile file = new MockMultipartFile(filename, filename, "image/jpg", StreamUtils.copyToByteArray(stream));
+        response = pictureRestService.upload(file);
+    }
+
+    @Then("^I should find a have the picture with content$")
+    public void iShouldFindAHaveThePictureWithContent() throws Throwable {
+        assertThat(((Picture) response.getBody()).getData()).isNotEmpty();
+    }
+
+    @And("^it location should match \"([^\"]*)\"$")
+    public void itLocationShouldMatch(String locationPattern) throws Throwable {
+        assertThat(((Picture) response.getBody()).getLocation()).matches(locationPattern);
+    }
+
+    @When("^I request the picture from location \"([^\"]*)\"$")
+    public void iRequestThePictureFromLocation(String location) throws Throwable {
+        response = pictureRestService.findByLocation(location);
     }
 }

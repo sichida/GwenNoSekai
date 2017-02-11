@@ -18,7 +18,6 @@ export class AdminThumbnailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.pictureId);
     if (this.pictureId) {
       this.pictureService.findById(this.pictureId)
         .subscribe(picture => this.picture = picture);
@@ -26,12 +25,10 @@ export class AdminThumbnailComponent implements OnInit {
   }
 
   upload(file: File) {
-    this.pictureService.uploadThumbnail(file)
+    this.pictureService.upload(file)
       .subscribe(picture => {
-        console.log(picture);
         this.picture = picture;
         this.pictureUploaded.emit(picture);
       });
   }
-
 }

@@ -29,7 +29,9 @@ describe('PictureService', () => {
   it('should upload a thumbnail', async(inject(
     [PictureService, MockBackend], (service: PictureService, mockBackend) => {
       const mockPicture: Picture = {
-        id: 'some_random_id'
+        id: 'some_random_id',
+        location: '/pictures/image.jpg',
+        filename: 'image.jpg'
       };
 
       mockBackend.connections.subscribe(conn => {
@@ -38,7 +40,7 @@ describe('PictureService', () => {
 
       let mockFile: any = { name: 'mockFile' };
 
-      service.uploadThumbnail(mockFile).subscribe(res => {
+      service.upload(mockFile).subscribe(res => {
         expect(res).toEqual(mockPicture);
       });
     })));
@@ -46,7 +48,9 @@ describe('PictureService', () => {
   it('should find an existing picture', async(inject(
     [PictureService, MockBackend], (service: PictureService, mockBackend) => {
       const mockPicture: Picture = {
-        id: 'some_random_id'
+        id: 'some_random_id',
+        location: '/pictures/image.jpg',
+        filename: 'image.jpg'
       };
 
       mockBackend.connections.subscribe(conn => {

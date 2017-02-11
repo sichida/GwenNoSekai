@@ -47,7 +47,9 @@ describe('AdminThumbnailComponent', () => {
   it('should create a new article', inject(
     [MockBackend], (mockBackend) => {
       const mockPicture: Picture = {
-        id: 'some_random_id'
+        id: 'some_random_id',
+        location: '/pictures/image.jpg',
+        filename: 'image.jpg'
       };
 
       mockBackend.connections.subscribe(conn => {

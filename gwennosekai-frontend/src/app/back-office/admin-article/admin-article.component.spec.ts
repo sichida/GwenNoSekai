@@ -1,16 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { RouterTestingModule } from "@angular/router/testing";
-import { async, inject, ComponentFixture, TestBed } from "@angular/core/testing";
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
+import { RouterTestingModule } from '@angular/router/testing';
+import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 import { FormsModule } from '@angular/forms';
-import { AdminArticleComponent } from "./admin-article.component";
-import { Article } from "../../shared/article.entity";
-import { ArticleService } from "../../service/article.service";
+import { AdminArticleComponent } from './admin-article.component';
+import { Article } from '../../shared/article.entity';
+import { ArticleService } from '../../service/article.service';
 import { AdminThumbnailComponent } from '../admin-thumbnail/admin-thumbnail.component';
 import { PictureService } from '../../service/picture.service';
 import { Picture } from '../../shared/picture.entity';
+import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 
+declare var tinymce: TinyMCE.Static;
 
 describe('AdminArticleComponent', () => {
   let component: AdminArticleComponent;
@@ -20,7 +22,8 @@ describe('AdminArticleComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AdminArticleComponent,
-        AdminThumbnailComponent
+        AdminThumbnailComponent,
+        RichTextEditorComponent
       ],
       providers: [
         ArticleService,
@@ -46,6 +49,12 @@ describe('AdminArticleComponent', () => {
     fixture = TestBed.createComponent(AdminArticleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    // Needed because tinymce has to be in visible component in order to be removed
+    if (tinymce.activeEditor) {
+      tinymce.activeEditor.remove = () => {
+      };
+    }
   });
 
   it('should create', () => {
@@ -74,8 +83,10 @@ describe('AdminArticleComponent', () => {
     }));
 
   it('should add a thumbnail', () => {
-    const mockPicture:Picture = {
-      id: 'some-random-id'
+    const mockPicture: Picture = {
+      id: 'some-random-id',
+      location: 'path/to/picture.jpg',
+      filename: 'picture.jpg'
     };
     component.onThumbnailUploaded(mockPicture);
     expect(component.article.thumbnailId).toEqual(mockPicture.id);

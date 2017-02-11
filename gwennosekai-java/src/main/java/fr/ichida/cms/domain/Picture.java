@@ -13,6 +13,8 @@ public class Picture {
     private String id;
     @JsonIgnore
     private byte[] data;
+    private String location;
+    private String filename;
 
     public String getId() {
         return id;
@@ -28,5 +30,21 @@ public class Picture {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getFilename() {
+        return filename;
     }
 }
