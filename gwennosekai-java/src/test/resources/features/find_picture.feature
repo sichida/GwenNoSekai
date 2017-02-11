@@ -4,7 +4,14 @@ Feature: Find uploaded picture
 
   Scenario: I should find a picture
     Given the pictures exist:
-      | id              | file content                              |
-      | my-generated-id | gwennosekai-diy-cousette-bianca-cover.jpg |
+      | id              | file content                              | filename                                  | location                                            |
+      | my-generated-id | gwennosekai-diy-cousette-bianca-cover.jpg | gwennosekai-diy-cousette-bianca-cover.jpg | /pictures/gwennosekai-diy-cousette-bianca-cover.jpg |
     When I request the picture "my-generated-id"
+    Then I should have a non null picture
+
+  Scenario: I should find a picture from it location
+    Given the pictures exist:
+      | id              | file content                              | filename                                  | location                                            |
+      | my-generated-id | gwennosekai-diy-cousette-bianca-cover.jpg | gwennosekai-diy-cousette-bianca-cover.jpg | /pictures/gwennosekai-diy-cousette-bianca-cover.jpg |
+    When I request the picture from location "gwennosekai-diy-cousette-bianca-cover.jpg"
     Then I should have a non null picture

@@ -20,7 +20,7 @@ import { AdminArticleComponent } from "./back-office/admin-article/admin-article
 import { ArticleService } from "./service/article.service";
 import { AdminThumbnailComponent } from './back-office/admin-thumbnail/admin-thumbnail.component';
 import { PictureService } from './service/picture.service';
-import { HtmlEditorDirective } from './directives/html-editor.directive';
+import { RichTextEditorComponent } from './back-office/rich-text-editor/rich-text-editor.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { HtmlEditorDirective } from './directives/html-editor.directive';
     AdminArticleComponent,
     AdminArticleListComponent,
     AdminThumbnailComponent,
-    HtmlEditorDirective
+    RichTextEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,7 @@ export class AdminThumbnailComponent implements OnInit {
   }
 
   upload(file: File) {
-    this.pictureService.uploadThumbnail(file)
+    this.pictureService.upload(file)
       .subscribe(picture => {
         this.picture = picture;
         this.pictureUploaded.emit(picture);
