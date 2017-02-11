@@ -21,6 +21,7 @@ import { ArticleService } from "./service/article.service";
 import { AdminThumbnailComponent } from './back-office/admin-thumbnail/admin-thumbnail.component';
 import { PictureService } from './service/picture.service';
 import { RichTextEditorComponent } from './back-office/rich-text-editor/rich-text-editor.component';
+import { StringUtilsService } from './service/string-utils.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { RichTextEditorComponent } from './back-office/rich-text-editor/rich-tex
   providers: [
     ArticleService,
     PictureService,
+    StringUtilsService,
     PostService
   ],
   bootstrap: [AppComponent]

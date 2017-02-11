@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Article } from '../../shared/article.entity';
 import { ArticleService } from '../../service/article.service';
 import { Picture } from '../../shared/picture.entity';
+import { StringUtilsService } from '../../service/string-utils.service';
 
 @Component({
   selector: 'app-admin-article',
@@ -16,7 +17,8 @@ export class AdminArticleComponent implements OnInit {
   errorOccurred: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private articleService: ArticleService) {
+              private articleService: ArticleService,
+              private stringUtils: StringUtilsService) {
   }
 
   ngOnInit() {
@@ -45,6 +47,18 @@ export class AdminArticleComponent implements OnInit {
         this.updated = true;
         setTimeout(() => this.updated = false, 5000);
       }, () => this.errorOccurred = true);
+    }
+  }
+
+  onTitleChanged(updatePermalink: boolean) {
+    if (updatePermalink) {
+
+      this.article.permalink = this.stringUtils.removeAccent(this.article.title)
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-zA-Z\d\s]/g, ' ')
+        .replace(/\s\s+/g, ' ')
+        .replace(/\s/g, '-');
     }
   }
 

@@ -16,9 +16,14 @@
   <div class="col-xs-12 col-sm-8">
     <form (submit)="submitArticle()" *ngIf="article">
       <div class="form-group">
+        <label for="title">Lien</label>
+        <input type="text" class="form-control" id="link" name="link" #link="ngModel"
+               placeholder="Lien" [(ngModel)]="article.permalink">
+      </div>
+      <div class="form-group">
         <label for="title">Titre</label>
         <input type="text" class="form-control" id="title" name="title"
-               placeholder="Titre" [(ngModel)]="article.title">
+               placeholder="Titre" [(ngModel)]="article.title" (ngModelChange)="onTitleChanged(!link.control.dirty)">
       </div>
       <div class="form-group">
         <label>Contenu</label>
