@@ -22,6 +22,7 @@ import { AdminThumbnailComponent } from './back-office/admin-thumbnail/admin-thu
 import { PictureService } from './service/picture.service';
 import { RichTextEditorComponent } from './back-office/rich-text-editor/rich-text-editor.component';
 import { StringUtilsService } from './service/string-utils.service';
+import { VarDirective } from './directive/var.directive';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { StringUtilsService } from './service/string-utils.service';
     AdminArticleComponent,
     AdminArticleListComponent,
     AdminThumbnailComponent,
-    RichTextEditorComponent
+    RichTextEditorComponent,
+    VarDirective
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { PictureService } from '../../service/picture.service';
 import { Picture } from '../../shared/picture.entity';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { StringUtilsService } from '../../service/string-utils.service';
+import { VarDirective } from '../../directive/var.directive';
 
 declare var tinymce: TinyMCE.Static;
 
@@ -24,7 +25,8 @@ describe('AdminArticleComponent', () => {
       declarations: [
         AdminArticleComponent,
         AdminThumbnailComponent,
-        RichTextEditorComponent
+        RichTextEditorComponent,
+        VarDirective
       ],
       providers: [
         ArticleService,
@@ -139,6 +141,15 @@ describe('AdminArticleComponent', () => {
       };
       component.onTitleChanged(true);
       expect(component.article.permalink).toEqual('recit-de-voyage-tokyo-la-boucle-est-bouclee');
+    });
+
+    it('should update permalink', () => {
+      component.article = {
+        title: 'RÉCIT DE VOYAGE ❥ TOKYO : LA BOUCLE EST BOUCLÉE',
+        content: 'This is the story of my life'
+      };
+      component.updatePermalink('RÉCIT DE VOYAGE ❥ TOKYO');
+      expect(component.article.permalink).toEqual('recit-de-voyage-tokyo');
     });
   });
 });

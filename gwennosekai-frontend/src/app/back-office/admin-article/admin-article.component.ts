@@ -15,6 +15,8 @@ export class AdminArticleComponent implements OnInit {
   created: boolean = false;
   updated: boolean = false;
   errorOccurred: boolean = false;
+  permalinkCanBeUpdated: boolean = false;
+  baseurl: string;
 
   constructor(private route: ActivatedRoute,
               private articleService: ArticleService,
@@ -27,9 +29,12 @@ export class AdminArticleComponent implements OnInit {
         .subscribe(
           (article: Article) => this.article = article,
           () => this.errorOccurred = true);
+      this.permalinkCanBeUpdated = false;
     } else {
       this.article = new Article();
+      this.permalinkCanBeUpdated = true;
     }
+    this.baseurl = `https://${window.location.hostname}/posts`;
   }
 
   submitArticle() {
@@ -52,17 +57,24 @@ export class AdminArticleComponent implements OnInit {
 
   onTitleChanged(updatePermalink: boolean) {
     if (updatePermalink) {
-
-      this.article.permalink = this.stringUtils.removeAccent(this.article.title)
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-zA-Z\d\s]/g, ' ')
-        .replace(/\s\s+/g, ' ')
-        .replace(/\s/g, '-');
+      this.article.permalink = this.computePermalink(this.article.title);
     }
   }
 
-  onThumbnailUploaded(mockPicture: Picture) {
-    this.article.thumbnailId = mockPicture.id;
+  private computePermalink(title: string) {
+    return this.stringUtils.removeAccent(title)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z\d\s]/g, ' ')
+      .replace(/\s\s+/g, ' ')
+      .replace(/\s/g, '-');
+  }
+
+  onThumbnailUploaded(picture: Picture) {
+    this.article.thumbnailId = picture.id;
+  }
+
+  updatePermalink(permalink: string) {
+    this.article.permalink = this.computePermalink(permalink);
   }
 }
