@@ -1,11 +1,15 @@
-<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="created || updated">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <span *ngIf="updated">L'article a été mis à jour</span>
-  <span *ngIf="created">L'article a été créé</span>
-</div>
-<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="errorOccurred">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <span>Une erreur est survenue. Si le problème persiste veuillez contacter le service de support.</span>
+<div class="alert-container">
+  <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="created || updated">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <span *ngIf="updated">L'article a été mis à jour</span>
+    <span *ngIf="created">L'article a été créé</span>
+  </div>
+  <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="errorOccurred">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <span>Une erreur est survenue. Si le problème persiste veuillez contacter le service de support.</span>
+  </div>
 </div>
 <div class="row" *ngIf="article">
   <div class="col-xs-12">
@@ -14,11 +18,29 @@
     </a>
   </div>
   <div class="col-xs-12 col-sm-8">
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="control-label" for="link">Lien</label>
+        <div class="link form-control-static" #editing="var" [var]="false">
+          <div [hidden]="editing.value">
+            <p class="inline-block" id="linkStatic" name="link">{{baseurl}}/{{article.permalink}}</p>
+            <button class="btn btn-primary inline-block" (click)="permalink.value = article.permalink; editing.var = true">Modifier</button>
+          </div>
+          <div [hidden]="!editing.value">
+            <input type="text" class="form-control inline-block" id="link" name="link" #link="ngModel"
+                   placeholder="Lien" [ngModel]="article.permalink" #permalink>
+            <button class="btn btn-primary inline-block"
+                    (click)="updatePermalink(permalink.value); editing.var = false">Ok</button>
+            <button class="btn btn-primary inline-block" (click)="editing.var = false">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </form>
     <form (submit)="submitArticle()" *ngIf="article">
       <div class="form-group">
         <label for="title">Titre</label>
         <input type="text" class="form-control" id="title" name="title"
-               placeholder="Titre" [(ngModel)]="article.title">
+               placeholder="Titre" [(ngModel)]="article.title" (ngModelChange)="onTitleChanged(permalinkCanBeUpdated && !link.control.dirty)">
       </div>
       <div class="form-group">
         <label>Contenu</label>

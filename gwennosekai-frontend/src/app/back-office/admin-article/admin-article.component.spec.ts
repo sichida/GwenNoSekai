@@ -11,6 +11,8 @@ import { AdminThumbnailComponent } from '../admin-thumbnail/admin-thumbnail.comp
 import { PictureService } from '../../service/picture.service';
 import { Picture } from '../../shared/picture.entity';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
+import { StringUtilsService } from '../../service/string-utils.service';
+import { VarDirective } from '../../directive/var.directive';
 
 declare var tinymce: TinyMCE.Static;
 
@@ -23,11 +25,13 @@ describe('AdminArticleComponent', () => {
       declarations: [
         AdminArticleComponent,
         AdminThumbnailComponent,
-        RichTextEditorComponent
+        RichTextEditorComponent,
+        VarDirective
       ],
       providers: [
         ArticleService,
         PictureService,
+        StringUtilsService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -90,5 +94,62 @@ describe('AdminArticleComponent', () => {
     };
     component.onThumbnailUploaded(mockPicture);
     expect(component.article.thumbnailId).toEqual(mockPicture.id);
+  });
+
+  describe('permalink', () => {
+    it('should replace spaces with dash', () => {
+      component.article = {
+        title: 'My first article',
+        content: 'This is the story of my life'
+      };
+      component.onTitleChanged(true);
+      expect(component.article.permalink).toEqual('my-first-article');
+    });
+
+    it('should not modify permalink', () => {
+      component.article = {
+        title: 'My first article edited',
+        content: 'This is the story of my life',
+        permalink: 'my-first-article'
+      };
+      component.onTitleChanged(false);
+      expect(component.article.permalink).toEqual('my-first-article');
+    });
+
+    it('should remove trailing whitespaces', () => {
+      component.article = {
+        title: 'My first article  ',
+        content: 'This is the story of my life'
+      };
+      component.onTitleChanged(true);
+      expect(component.article.permalink).toEqual('my-first-article');
+    });
+
+    it('should remove non alpha-numeric characters', () => {
+      component.article = {
+        title: 'RÉCIT DE VOYAGE ❥ TOKYO',
+        content: 'This is the story of my life'
+      };
+      component.onTitleChanged(true);
+      expect(component.article.permalink).toEqual('recit-de-voyage-tokyo');
+    });
+
+    it('should remove ponctuation', () => {
+      component.article = {
+        title: 'RÉCIT DE VOYAGE ❥ TOKYO : LA BOUCLE EST BOUCLÉE',
+        content: 'This is the story of my life'
+      };
+      component.onTitleChanged(true);
+      expect(component.article.permalink).toEqual('recit-de-voyage-tokyo-la-boucle-est-bouclee');
+    });
+
+    it('should update permalink', () => {
+      component.article = {
+        title: 'RÉCIT DE VOYAGE ❥ TOKYO : LA BOUCLE EST BOUCLÉE',
+        content: 'This is the story of my life'
+      };
+      component.updatePermalink('RÉCIT DE VOYAGE ❥ TOKYO');
+      expect(component.article.permalink).toEqual('recit-de-voyage-tokyo');
+    });
   });
 });

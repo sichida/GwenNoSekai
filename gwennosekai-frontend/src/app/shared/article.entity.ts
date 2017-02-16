@@ -4,4 +4,5 @@ export class Article {
   content: string;
   creationDate?: Date;
   thumbnailId?: string;
+  permalink?: string;
 }
