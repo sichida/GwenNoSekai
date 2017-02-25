@@ -1,0 +1,9 @@
+<section>
+  <h3>Tags</h3>
+  <tag-input [(ngModel)]="tags"
+             [modelAsStrings]="true"
+             (onAdd)="onTagAdded($event)">
+    <tag-input-dropdown [autocompleteObservable]="requestAutocompleteItems">
+    </tag-input-dropdown>
+  </tag-input>
+</section>

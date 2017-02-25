@@ -1,3 +1,4 @@
+@mongo-txn
 Feature: Find uploaded picture
   I need to find uploaded picture
   So I can use them within my articles

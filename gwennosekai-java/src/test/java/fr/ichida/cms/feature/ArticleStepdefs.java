@@ -143,4 +143,11 @@ public class ArticleStepdefs {
         assertThat(picture).isNotNull();
         assertThat(picture.getData()).isNotNull();
     }
+
+    @And("^the article \"([^\"]*)\" has following tags:$")
+    public void theArticleSome_random_idHasFollowingTags(String id, List<String> tags) throws Throwable {
+        Article article = articleRepository.findOne(id);
+        article.setTags(tags);
+        articleRepository.save(article);
+    }
 }

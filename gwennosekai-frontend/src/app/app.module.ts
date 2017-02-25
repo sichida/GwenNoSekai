@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { TagInputModule } from 'ng2-tag-input';
 import { RouterModule } from "@angular/router";
 import { ROUTES } from "./app.routes";
 import { AppComponent } from "./app.component";
@@ -23,6 +24,8 @@ import { PictureService } from './service/picture.service';
 import { RichTextEditorComponent } from './back-office/rich-text-editor/rich-text-editor.component';
 import { StringUtilsService } from './service/string-utils.service';
 import { VarDirective } from './directive/var.directive';
+import { AdminTagsComponent } from './back-office/admin-tags/admin-tags.component';
+import { TagService } from './service/tag.service';
 
 @NgModule({
   declarations: [
@@ -40,18 +43,21 @@ import { VarDirective } from './directive/var.directive';
     AdminArticleListComponent,
     AdminThumbnailComponent,
     RichTextEditorComponent,
-    VarDirective
+    VarDirective,
+    AdminTagsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    TagInputModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [
     ArticleService,
     PictureService,
     StringUtilsService,
+    TagService,
     PostService
   ],
   bootstrap: [AppComponent]

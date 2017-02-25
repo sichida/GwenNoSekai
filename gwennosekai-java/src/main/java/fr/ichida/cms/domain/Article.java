@@ -1,9 +1,11 @@
 package fr.ichida.cms.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by shoun on 31/01/2017.
@@ -19,6 +21,8 @@ public class Article {
     private LocalDateTime creationDate;
     private LocalDateTime lastUpdateDate;
     private String thumbnailId;
+    @TextIndexed
+    private List<String> tags;
 
     public String getId() {
         return id;
@@ -82,5 +86,13 @@ public class Article {
 
     public void setThumbnailId(String thumbnailId) {
         this.thumbnailId = thumbnailId;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 }
