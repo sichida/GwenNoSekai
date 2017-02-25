@@ -1,3 +1,4 @@
+@mongo-txn
 Feature: Display uploaded picture
   I need to display uploaded picture
   So I can use them within my articles

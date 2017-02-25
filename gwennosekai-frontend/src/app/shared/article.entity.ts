@@ -5,4 +5,5 @@ export class Article {
   creationDate?: Date;
   thumbnailId?: string;
   permalink?: string;
+  tags?: Set<string>;
 }

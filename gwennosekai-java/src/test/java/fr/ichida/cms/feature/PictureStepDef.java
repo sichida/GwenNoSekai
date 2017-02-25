@@ -6,6 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import fr.ichida.cms.GwennosekaiJavaApplication;
 import fr.ichida.cms.domain.Article;
 import fr.ichida.cms.domain.Picture;
 import fr.ichida.cms.mongo.PictureRepository;
@@ -14,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ import static org.assertj.core.api.Assertions.fail;
 /**
  * Created by shoun on 06/02/2017.
  */
+@ContextConfiguration(classes = GwennosekaiJavaApplication.class)
 public class PictureStepDef {
     @Autowired
     private ArticleRestService articleRestService;

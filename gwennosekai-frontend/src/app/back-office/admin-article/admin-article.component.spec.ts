@@ -13,6 +13,9 @@ import { Picture } from '../../shared/picture.entity';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { StringUtilsService } from '../../service/string-utils.service';
 import { VarDirective } from '../../directive/var.directive';
+import { AdminTagsComponent } from '../admin-tags/admin-tags.component';
+import { TagInputModule } from 'ng2-tag-input';
+import { TagService } from '../../service/tag.service';
 
 declare var tinymce: TinyMCE.Static;
 
@@ -26,12 +29,14 @@ describe('AdminArticleComponent', () => {
         AdminArticleComponent,
         AdminThumbnailComponent,
         RichTextEditorComponent,
+        AdminTagsComponent,
         VarDirective
       ],
       providers: [
         ArticleService,
         PictureService,
         StringUtilsService,
+        TagService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -43,7 +48,8 @@ describe('AdminArticleComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
-        FormsModule
+        FormsModule,
+        TagInputModule
       ]
     })
       .compileComponents();
